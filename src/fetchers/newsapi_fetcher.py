@@ -1,3 +1,6 @@
+from src.utils.storage import init_db, insert_rows
+init_db()
+
 # newsapi_fetcher.py
 # Fetches top global business headlines from NewsAPI
 import os
@@ -22,6 +25,8 @@ def fetch_news(api_key=None):
         print("Total results:", data.get("totalResults", 0))
     else:
         print("Response text:", resp.text)
+rows = [("NewsAPI", article["title"]) for article in data.get("articles", [])]
+insert_rows("news_data", rows)
 
 if __name__ == "__main__":
     fetch_news()
