@@ -8,6 +8,11 @@ on:
 jobs:
   poll_and_evaluate:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./ProjectX_GIIG
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,5 +31,5 @@ jobs:
           X_BEARER: ${{ secrets.X_BEARER }}
           NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
         run: |
-          python ./src/fetchers/rss_fetcher.py
-          python ./src/fetchers/newsapi_fetcher.py
+          python src/fetchers/rss_fetcher.py
+          python src/fetchers/newsapi_fetcher.py
