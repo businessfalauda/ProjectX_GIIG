@@ -1,8 +1,9 @@
-name: Poll Influencers and Run Evaluator
+# ---------- ProjectX GIIG GitHub Workflow ----------
+name: "Poll Influencers and Run Evaluator"
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,19 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
-          pip install feedparser requests
+          pip install feedparser requests pandas
 
-            - name: Run fetchers
+      - name: Run fetchers
         working-directory: ProjectX_GIIG
         env:
           X_BEARER: ${{ secrets.X_BEARER }}
