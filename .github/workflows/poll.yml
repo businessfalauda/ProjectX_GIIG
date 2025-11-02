@@ -26,10 +26,11 @@ jobs:
         run: |
           pip install feedparser requests pandas
 
-      - name: Run fetchers
-        env:
-          X_BEARER: ${{ secrets.X_BEARER }}
-          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
-        run: |
-          python src/fetchers/rss_fetcher.py
-          python src/fetchers/newsapi_fetcher.py
+         - name: Run fetchers
+     env:
+       PYTHONPATH: ${{ github.workspace }}
+       X_BEARER: ${{ secrets.X_BEARER }}
+       NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+     run: |
+       python src/fetchers/rss_fetcher.py
+       python src/fetchers/newsapi_fetcher.py
