@@ -1,0 +1,25 @@
+name: Poll Influencers and Run Evaluator
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  poll_and_evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install deps
+        run: pip install feedparser requests
+      - name: Run fetchers
+        env:
+          X_BEARER: ${{ secrets.X_BEARER }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+        run: |
+          python src/fetchers/rss_fetcher.py
+          python src/fetchers/newsapi_fetcher.py
