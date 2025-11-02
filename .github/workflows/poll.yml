@@ -22,6 +22,14 @@ jobs:
         run: |
           pip install feedparser requests pandas
 
+                - name: Test Slack connection
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          PAYLOAD="{\"text\": \"🔔 Test ping from ProjectX_Notifier to #business-falauda\"}"
+          curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" $SLACK_WEBHOOK
+
+
       - name: Run fetchers
         env:
           PYTHONPATH: ${{ github.workspace }}
